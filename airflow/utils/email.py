@@ -130,10 +130,11 @@ def send_email_smtp(
     """
     smtp_mail_from = conf.get("smtp", "SMTP_MAIL_FROM")
 
-    if smtp_mail_from is not None:
+    #It makes more sens to prioritize user from_email entry value
+    if from_email is None:
         mail_from = smtp_mail_from
     else:
-        if from_email is None:
+        if smtp_mail_from is None:
             raise ValueError(
                 "You should set from email - either by smtp/smtp_mail_from config or `from_email` parameter"
             )
